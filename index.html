@@ -339,7 +339,7 @@
                 
               
 
-              <time title="創建時間：2018-09-20 19:54:26 / 修改時間：20:26:40" itemprop="dateCreated datePublished" datetime="2018-09-20T19:54:26+08:00">2018-09-20</time>
+              <time title="創建時間：2018-09-20 19:54:26 / 修改時間：20:31:24" itemprop="dateCreated datePublished" datetime="2018-09-20T19:54:26+08:00">2018-09-20</time>
             
 
             
@@ -396,38 +396,14 @@
 
       
         
-          
-            <p>就是個甚麼都說一說，<del>甚麼都說不清楚</del>，大概讓你知道接下來要幹嘛的章節，其實感覺也沒有特別要記的，反正加減note一下。</p>
-<h2 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h2><p><strong>x86</strong>:32bit，= IA32<br><strong>x64</strong>:64bit，=IA32e，=/=IA64<br>x64的Instruction set延伸自x86，因此能向下相容32-bit aplliction，AMD先生出來的<br>IA64是intel自己搞得，沒辦法向下相容，<del>難怪大失敗</del></p>
-<h3 id="Interl-64-vs-IA-64"><a href="#Interl-64-vs-IA-64" class="headerlink" title="Interl 64 vs. IA-64"></a>Interl 64 vs. IA-64</h3><p>Instruction set不一樣</p>
-<h2 id="x86-Registers"><a href="#x86-Registers" class="headerlink" title="x86 Registers"></a>x86 Registers</h2><p>列一下各個暫存器，現在也不知道各個在幹嘛，反正之後會把重要的跟做甚麼用寫一下，<del>搞不好會刪一堆也不一定</del></p>
-<ul>
-<li><strong>General Purpose Registers</strong><br>ESP,EBP</li>
-<li><strong>Instruction Pointer</strong><br>IP:指向接下來要執行的指令的位置</li>
-<li><strong>EFLAG</strong></li>
-<li><strong>Segment Registers</strong></li>
-<li><strong>Table Registers(System Address Registers)</strong></li>
-<li><strong>Control Registers</strong></li>
-<li><strong>Debug Registers</strong><br>好像是intel特有的</li>
-</ul>
-<p>64bit暫存器就是ROO RXX之類的</p>
-<h2 id="x86-64"><a href="#x86-64" class="headerlink" title="x86-64"></a>x86-64</h2><p>又稱x64、x86_64、AMD64、IA32e、EM64T，各家都想自己取一個名字，<del>你們搞得我好亂R</del>，不管叫哪個反正都是x86 Instruction set的64-bit版<br>AMD先搞出了這個東西後，現在Intel、VIA都跟著做<br>由於是原本x86的擴充，所以能完全相容16bit和32bit的x86 code，跑起來不會有penalty</p>
-<h2 id="IA32-Real-Mode-vs-Protected-Mode"><a href="#IA32-Real-Mode-vs-Protected-Mode" class="headerlink" title="IA32-Real Mode vs. Protected Mode"></a>IA32-Real Mode vs. Protected Mode</h2><p><del>來了，當初OS要是有提到肯定沒聽懂的部分</del><br>其實，在電腦還沒灌系統時，就有一些code在裡面，那個東西就叫做BIOS。<br>當IA32 processor啟動或重開時，IP會指到BIOS那部分，此時電腦為16bit且是在<code>Real mode</code>中，之後才在real mode中切換至32bit，變為<code>Protected mode</code>，OS是運行在Protected mode下。</p>
-<p>Registers切換時好像會不一樣吧?IP=&gt;EIP之類的，Instruction Set似乎也是…?介紹講很快很表面，還沒很懂</p>
-<h3 id="Addressing-in-Real-mode"><a href="#Addressing-in-Real-mode" class="headerlink" title="Addressing in Real mode"></a>Addressing in Real mode</h3><p>Real mode中，CPU存取的位置實際上是：Segment register x 16 + offset (=physical address)，也就是shift 4 bit後再加上offset<br>PPT上寫用16-bit offset限制CPU to 64k segment sizes，沒看很懂，以後再研究吧<br>Real mode下program可以load任何東西到segment register</p>
-<h3 id="Addressing-in-Protected-mode"><a href="#Addressing-in-Protected-mode" class="headerlink" title="Addressing in Protected mode"></a>Addressing in Protected mode</h3><p>PPT 36頁有圖</p>
-<h3 id="Interrupts-in-Real-mode"><a href="#Interrupts-in-Real-mode" class="headerlink" title="Interrupts in Real mode"></a>Interrupts in Real mode</h3><p>Real-mode Interrupt Vector Table(IVT)<del>新朋友</del><br>內含256個real-mode pointers，提供所有real-mode Interrupt Service Routines(ISRs)<del>又是新朋友</del><br>Real-mode pointers長32bit(?)，由16bit的segment offset(在後面)和16-bit segment address組成(在前面)<br>0    0x0000 [[offset][segment]]<br>1    0x0004[[offset][segment]]<br>2    0x0008[[offset][segment]] etc…</p>
-<h3 id="Interrupts-in-Protected-Mode"><a href="#Interrupts-in-Protected-Mode" class="headerlink" title="Interrupts in Protected Mode"></a>Interrupts in Protected Mode</h3><p>Real mode 和protected mode 發生interrupt時，找到interrupt service routine的方式是不一樣的，介紹說不清楚，就先這樣吧。</p>
-<h3 id="How-to-Switch-to-Protected-Mode"><a href="#How-to-Switch-to-Protected-Mode" class="headerlink" title="How to Switch to Protected Mode"></a>How to Switch to Protected Mode</h3><p>簡而言之，把CR0(斜體)或MSW(斜體)暫存器設成PE-bit就行，整個流程看PPT，不過也沒記的必要。</p>
-<h2 id="IA-32e-Mode-Long-mode"><a href="#IA-32e-Mode-Long-mode" class="headerlink" title="IA-32e Mode/Long mode"></a>IA-32e Mode/Long mode</h2><p>聽說後面就不會這樣32和64bit的都講</p>
-<h3 id="IA-32e-mode"><a href="#IA-32e-mode" class="headerlink" title="IA-32e mode"></a>IA-32e mode</h3><p>兩種模式，compatibility mode和64-bit mode，前面那個大概就是偶爾會看到的相容模式？<br>64-bit有64-bit的linear addressing和最多支援64GB RAM<br>相容模式跑32-bit以下的code</p>
-<h3 id="IA32-EFFR"><a href="#IA32-EFFR" class="headerlink" title="IA32_EFFR"></a>IA32_EFFR</h3><p>IA32_Extended Feature Enable Register，這個model指定(記載?)IA32e下的control activation和operation</p>
-<h3 id="Protected-mode-to-IA-32e-mode"><a href="#Protected-mode-to-IA-32e-mode" class="headerlink" title="Protected mode to IA-32e mode"></a>Protected mode to IA-32e mode</h3><p>Enabling paging和setting the LME bit(在IA32_EFFR中)</p>
-<h3 id="Little-Endian-and-Big-Endian"><a href="#Little-Endian-and-Big-Endian" class="headerlink" title="Little Endian and Big Endian"></a>Little Endian and Big Endian</h3><p>Little從low-order byte存起，big相反，以0x123456要從記憶體位置0x0000寫入就會是<br>         Big        Little<br>0x0000   0x12   0x56<br>0x0001   0x34   0x34<br>0x0002   0x56   0x12</p>
-<h2 id="Linux-Source-Code-Tree-overview"><a href="#Linux-Source-Code-Tree-overview" class="headerlink" title="Linux    Source Code Tree overview"></a>Linux    Source Code Tree overview</h2><p><del>太多了先跳過</del></p>
-<p>~~</p>
-
-          
+          <p>就是個甚麼都說一說，<del>甚麼都說不清楚</del>，大概讓你知道接下來要幹嘛的章節，其實感覺也沒有特別要記的，反正加減note一下。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/20/Linux上課筆記-1/#more" rel="contents">
+              閱讀全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
